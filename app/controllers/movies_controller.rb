@@ -20,7 +20,7 @@ class MoviesController < ApplicationController
       @h2='hilite'
     else
       @movies = Movie.all
-      @h=''
+      @h= ""
     end
       
     
@@ -46,6 +46,53 @@ class MoviesController < ApplicationController
     flash[:notice] = "#{@movie.title} was successfully updated."
     redirect_to movie_path(@movie)
   end
+  
+  def update_path1
+  end
+  
+  def update_path2
+    @up1= params[:movie]
+    @up2= Movie.find_by(title: @up1[:search1])
+    if (@up2)
+      @k1 = @up1[:title]
+      @k2 = @up1[:rat]
+      @k3 = @up1[:rel_date]
+      if @k1=='' || @k2=='' || @k3==''
+        flash[:notice]="One of the fields is empty"
+      else
+        @up2.update_attributes!(movie_params)
+        flash[:notice]="Movie has been updated"
+      end
+    else
+      flash[:notice]="Movie cannot be found"
+    end  
+    redirect_to movies_path
+  end
+  
+  def delete_path1
+  end
+  
+  def delete_path2
+  @del1 = params[:movie]
+  @del2 = Movie.find_by(title: @del1[:search1])
+  @del3 = Movie.where(rating: @del1[:search2]).all
+  if(@del2)
+    @del2.delete
+    flash[:notice]= "Movie Deleted"
+  elsif(@del3)
+    @del3.each {|x| x.delete}
+    flash[:notice]= "Movie Deleted"
+  else
+    flash[:notice]= "Movie cannot be found"
+  end
+  
+  
+  redirect_to movies_path
+  
+  
+  end
+
+
 
   def destroy
     @movie = Movie.find(params[:id])

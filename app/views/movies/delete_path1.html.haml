@@ -1,0 +1,19 @@
+
+%h1 Delete a Movie
+
+= form_tag delete_path2_movies_path , :method => :delete do
+
+ = label :movie, :search1, 'Enter the name of the movie you want to delete by name'
+ = text_field :movie, :search1
+
+ = submit_tag 'Delete the Movie'
+ 
+= form_tag delete_path2_movies_path , :method => :delete do
+
+ = label :movie, :search2, 'Enter the rating of the movie you want to DELETE'
+ = text_field :movie, :search2
+
+ = submit_tag 'Delete the Movie'
+
+
+%th= link_to 'Back to all movies', movies_path
